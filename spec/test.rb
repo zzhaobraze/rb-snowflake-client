@@ -11,7 +11,9 @@ def new_client
     "OZA47907",
     "SNOWFLAKE_CLIENT_TEST",
     "WEB_TEST_WH",
-    ""
+    "",
+    "Schema",
+    "pass_phrase"
   )
   client.logger.level = Logger::DEBUG
   client
