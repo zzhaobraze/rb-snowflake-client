@@ -7,6 +7,8 @@ gemspec
 
 gem "bundler"
 gem "rake"
+gem "benchmark"
+gem "logger"
 
 group :development do
   gem "parallel"

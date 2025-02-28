@@ -48,7 +48,7 @@ module RubySnowflake
         def public_key_fingerprint
           return @public_key_fingerprint unless @public_key_fingerprint.nil?
 
-          public_key_der = OpenSSL::PKey::RSA.new(@private_key_pem).public_key.to_der
+          public_key_der = OpenSSL::PKey::RSA.new(@private_key_pem, @pass_phrase).public_key.to_der
           digest = OpenSSL::Digest::SHA256.new.digest(public_key_der)
           fingerprint = Base64.strict_encode64(digest)
 
