@@ -102,6 +102,7 @@ module RubySnowflake
         ENV.fetch("SNOWFLAKE_USER"),
         ENV["SNOWFLAKE_DEFAULT_WAREHOUSE"],
         ENV["SNOWFLAKE_DEFAULT_DATABASE"],
+        ENV["SNOWFLAKE_DEFAULT_SCHEMA"],
         ENV["SNOWFLAKE_PASS_PHRASE"],
         logger: logger,
         log_level: log_level,
@@ -116,7 +117,7 @@ module RubySnowflake
     end
 
     def initialize(
-      uri, private_key, organization, account, user, default_warehouse, default_database,
+      uri, private_key, organization, account, user, default_warehouse, default_database, default_schema,
       pass_phrase,
       logger: DEFAULT_LOGGER,
       log_level: DEFAULT_LOG_LEVEL,
@@ -133,7 +134,7 @@ module RubySnowflake
         KeyPairJwtAuthManager.new(organization, account, user, private_key, jwt_token_ttl, pass_phrase)
       @default_warehouse = default_warehouse
       @default_database = default_database
-
+      @default_schema = default_schema
       # set defaults for config settings
       @logger = logger
       @logger.level = log_level
@@ -152,6 +153,7 @@ module RubySnowflake
     def query(query, warehouse: nil, streaming: false, database: nil, schema: nil, bindings: nil)
       warehouse ||= @default_warehouse
       database ||= @default_database
+      schema ||= @default_schema
 
       query_start_time = Time.now.to_i
       response = nil

@@ -35,6 +35,8 @@ client = RubySnowflake::Client.new(
   "snowflake-user",                                     # Your snowflake user
   "some_warehouse",                                     # The name of your warehouse to use by default
   "some_database",                                      # The name of the database in the context of which the queries will run
+  "some_schema",                                        # The name of the default schema
+  "pass_phrase",                                        # passphrase for private key
   max_connections: 12,                                  # Config options can be passed in
   connection_timeout: 45,                               # See below for the full set of options
   query_timeout: 1200,                                  # how long to wait for queries, in seconds
@@ -52,6 +54,8 @@ Available ENV variables (see below in the config section for details)
 - `SNOWFLAKE_USER`
 - `SNOWFLAKE_DEFAULT_WAREHOUSE`
 - `SNOWFLAKE_DEFAULT_DATABASE`
+- `SNOWFLAKE_DEFAULT_SCHEMA`
+- `SNOWFLAKE_PASS_PHRASE`
 - `SNOWFLAKE_JWT_TOKEN_TTL`
 - `SNOWFLAKE_CONNECTION_TIMEOUT`
 - `SNOWFLAKE_MAX_CONNECTIONS`
