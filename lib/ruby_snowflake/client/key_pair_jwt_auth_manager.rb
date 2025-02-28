@@ -8,13 +8,13 @@ module RubySnowflake
   class Client
     class KeyPairJwtAuthManager
       # requires text of a PEM formatted RSA private key
-      def initialize(organization, account, user, private_key, jwt_token_ttl)
+      def initialize(organization, account, user, private_key, jwt_token_ttl, pass_phrase)
         @organization = organization
         @account = account
         @user = user
         @private_key_pem = private_key
         @jwt_token_ttl = jwt_token_ttl
-
+        @pass_phrase = pass_phrase
         # start with an expired value to force creation
         @token_expires_at = Time.now.to_i - 1
         @token_semaphore = Concurrent::Semaphore.new(1)
@@ -27,7 +27,7 @@ module RubySnowflake
           now = Time.now.to_i
           @token_expires_at = now + @jwt_token_ttl
 
-          private_key = OpenSSL::PKey.read(@private_key_pem)
+          private_key = OpenSSL::PKey.read(@private_key_pem, @pass_phrase)
 
           payload = {
             :iss => "#{@organization.upcase}-#{@account.upcase}.#{@user.upcase}.#{public_key_fingerprint}",
